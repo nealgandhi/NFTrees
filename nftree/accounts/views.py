@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from django.http import Http404
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from .forms import SignUpForm
 
 
 def index(request):
@@ -24,13 +23,19 @@ def auction(request):
 
 def sign_up(request):
     if request.user.is_authenticated:
-        raise Http404("Can't sign up if you're logged in already")
-    context = {}
-    form = UserCreationForm(request.POST or None)
-    if request.method == "POST":
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return render(request, 'index.html')
-    context['form'] = form
-    return render(request, 'registration/sign_up.html', context)
+        return redirect('/index')
+    if request.method == "GET":
+        return render(request, 'registration/sign_up.html', {'form': SignUpForm()})
+    form = SignUpForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        user.refresh_from_db()
+        user.email = form.cleaned_data.get('email')
+        user.save()
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('/index')
+    else:
+        return render(request, 'registration/sign_up.html', {'form': form})
