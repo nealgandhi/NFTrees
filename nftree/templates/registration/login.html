@@ -4,9 +4,17 @@
 {% block auth_url %}accounts/login{% endblock %}
 {% block auth %}Login{% endblock %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Login">
-</form>
+<div class="row mt-5">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
 {% endblock %}
