@@ -1,1 +1,12 @@
-# Empty CSS file for your own CSS
+#paddedContent{
+    padding: 10px;
+    overflow: hidden;
+}
+
+.help-block {
+  background-color: #FBB0B0;
+}
+
+.blue {
+  color: #268392;
+}
