@@ -6,6 +6,19 @@
 {% block content %}
 {% if user.is_authenticated %}
     <h1>Welcome {{ user.username }}!</h1>
+    <div class="row mt-5">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="Mint">
+            </form>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
 {% else %}
     <h1>You must be logged in to mint content</h1>
 {% endif %}
