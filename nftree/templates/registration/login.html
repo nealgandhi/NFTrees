@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block static_prefix %}../../{% endblock %}
+{% block title %}Logout{% endblock %}
+{% block auth_url %}accounts/login{% endblock %}
+{% block auth %}Login{% endblock %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Login">
+</form>
+{% endblock %}

@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
+{% block static_prefix %}/{% endblock %}
 {% block title %}NFTree{% endblock %}
+{% block auth_url %}{{ auth_url }}{% endblock %}
+{% block auth %}{{ auth_text }}{% endblock %}
 {% block content %}
-	Temp Minting page
+{% if user.is_authenticated %}<h1>Welcome {{ user.username }}!</h1>{% endif %}
+<br>
+Temp Minting page
 {% endblock %}
