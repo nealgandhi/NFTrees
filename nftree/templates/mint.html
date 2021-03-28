@@ -10,11 +10,11 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
-            {% if documents %}
-            Your minted documents:
+            {% if minted_tokens %}
+            Your tokens:
             <ul>
-                {% for document in documents %}
-                    <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+                {% for token in minted_tokens %}
+                    <li>{{ token }}</li>
                 {% endfor %}
             </ul>
             {% else %}
@@ -32,6 +32,4 @@
 {% else %}
     <h1>You must be logged in to mint content</h1>
 {% endif %}
-<br>
-Temp Minting page
 {% endblock %}

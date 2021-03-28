@@ -11,13 +11,13 @@ class Token(models.Model):
                   ("MUS", "Music"),
                   ("ETC", "Other"))
     title = models.CharField(max_length=255)
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    token = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     filepath = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True, blank=True)
 
     def jsonify(self):
         payload = {"title": str(self.title),
-                   "uuid": str(self.uuid),
+                   "uuid": str(self.token),
                    "filepath": str(self.filepath),
                    "date_posted": str(self.date_posted)}
         return json.dumps(payload)
