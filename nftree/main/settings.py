@@ -124,7 +124,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATIC_URL = '/static/'
+STATIC_URL = str(BASE_DIR / "static")
+STATIC_ROOT = BASE_DIR / "static_root"
 LOGIN_REDIRECT_URL = 'index'
 
 AUTH_USER_MODEL = "accounts.Profile"
