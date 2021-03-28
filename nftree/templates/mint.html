@@ -14,11 +14,11 @@
             Your tokens:
             <ul>
                 {% for token in minted_tokens %}
-                    <li>{{ token }}</li>
+                    <li><a href="tokens/{{ token }}">{{ token }}</a></li>
                 {% endfor %}
             </ul>
             {% else %}
-                <p>No documents.</p>
+                <p>You have no minted tokens</p>
             {% endif %}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
