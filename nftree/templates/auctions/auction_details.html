@@ -4,17 +4,28 @@
 {% block auth_url %}{{ auth_url }}{% endblock %}
 {% block auth %}{{ auth_text }}{% endblock %}
 {% block content %}
-<div class="row">
+<div class="row mt-5">
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h1>{{ title }}</h1>
-        {{ owner }}
+        Owner: {{ owner }}
         <br>
-        {{ uuid }}
+        Winning: {{ winning }}
         <br>
-        {{ category }}
+        <a href="preview/{{ uuid }}" target="_blank">Preview</a>
         <br>
-        {{ date_posted }}
+        Category: {{ category }}
+        <br>
+        Date Posted: {{ date_posted }}
+        <br>
+        Current Price: ${{ current_price }}
+        <br>
+        {% if show_bid %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Bid ${{ next_price }}">
+        </form>
+        {% endif %}
     </div>
     <div class="col-md-2"></div>
 </div>

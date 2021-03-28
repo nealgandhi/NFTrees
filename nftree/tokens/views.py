@@ -68,7 +68,8 @@ def auctions(request):
         end = start + datetime.timedelta(days=auction.n_days)
         now = pytz.utc.localize(datetime.datetime.now())
         if end > now:
-            auctions.append((f"<a href='auctions/{auction.id.token}'>{auction.id.title}</a>", auction.owner, auction.id.category, (end - now).days, "$" + str(auction.current_price)))
+            auctions.append((f"<a href='auctions/{auction.id.token}'>{auction.id.title}</a>", auction.owner,
+                             auction.id.category, (end - now).days, "$" + str(auction.current_price)))
     context.update({"auctions": auctions})
     return render(request, 'auctions/auctions.html', context)
 
@@ -99,7 +100,7 @@ def new_auction(request):
         else:
             print("Oh no!")
 
-        return render(request, 'auctions/auctions.html', context)
+        return auctions(request)
 
     minted = json.loads(user.minted)
     options = []
@@ -117,9 +118,26 @@ def auction_details(request, token):
         context.update({"auth_url": "accounts/logout", "auth_text": "Logout"})
     else:
         context.update({"auth_url": "accounts/login", "auth_text": "Login"})
+
     queried_token = Token.objects.get(token=uuid.UUID(token))
+    queried_auction = Auction.objects.get(id=queried_token)
+
+    if queried_auction.owner == request.user.username:
+        context.update({"show_bid": False})
+    else:
+        context.update({"show_bid": True})
+
+    if request.method == "POST":
+        queried_auction.winning = request.user.username
+        queried_auction.current_price = int(queried_auction.current_price * 1.2)
+        queried_auction.n_bids += 1
+        queried_auction.save()
+
+    context.update({"current_price": queried_auction.current_price,
+                    "next_price": int(queried_auction.current_price * 1.2),
+                    "winning": queried_auction.winning})
     context.update(queried_token.jsonify())
-    return render(request, 'details.html', context)
+    return render(request, 'auctions/auction_details.html', context)
 
 
 def token_details(request, token):
@@ -131,3 +149,9 @@ def token_details(request, token):
     queried_token = Token.objects.get(token=uuid.UUID(token))
     context.update(queried_token.jsonify())
     return render(request, 'details.html', context)
+
+
+def preview(request, token):
+    queried_token = Token.objects.get(token=uuid.UUID(token))
+    context = {"bytes": open(queried_token.filepath, "rb").read()}
+    return render(request, 'static.html', context)

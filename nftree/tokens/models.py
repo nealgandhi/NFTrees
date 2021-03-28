@@ -38,6 +38,7 @@ class Token(models.Model):
 class Auction(models.Model):
     id = models.ForeignKey(Token, on_delete=models.CASCADE, primary_key=True, unique=True)
     owner = models.CharField(max_length=20)
+    winning = models.CharField(max_length=20)
     n_bids = models.IntegerField(default=0)
     time_start = models.DateTimeField(auto_now_add=True)
     n_days = models.IntegerField()
