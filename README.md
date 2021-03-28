@@ -1,6 +1,6 @@
 ## MergeHackPolicy2021
 
-Merge Hack-Policy Github Repo for "NFTerra"
+Merge Hack-Policy Github Repo for "NFTrees"
 Team consiting of Charles Averill, Margaret Belford, 
 Neal Gandhi, and Jeniel Zimmerman
 
