@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block static_prefix %}/{% endblock %}
+{% block title %}New Auction{% endblock %}
+{% block auth_url %}{{ auth_url }}{% endblock %}
+{% block auth %}{{ auth_text }}{% endblock %}
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+        <form method="post">
+            {% csrf_token %}
+            {% if options %}
+                <p><label for="id_token">Which token would you like to auction?</label> <select name="token" id="id_token">
+
+                    {% for title, value in options %}
+                    <option value="{{ value }}">{{ title }}</option>
+                    {% endfor %}
+
+                </select></p>
+                <p><label for="id_start_price">Start Price:</label> <input type="number" name="start_price" min="1.0" step="any" required id="id_start_price"></p>
+                <p><label for="id_n_days">How many days would you like the auction to stay open?</label> <input type="number" name="n_days" min="1" required id="id_n_days"></p>
+                <input type="submit" value="List Token for Auction">
+            {% else %}
+                <p>You have no tokens to auction</p>
+            {% endif %}
+        </form>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
+{% endblock %}

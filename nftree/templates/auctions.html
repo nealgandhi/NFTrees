@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block static_prefix %}/{% endblock %}
+{% block title %}Auctions{% endblock %}
+{% block auth_url %}{{ auth_url }}{% endblock %}
+{% block auth %}{{ auth_text }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 mt-5">
+        {% if user.is_authenticated %}
+            <div class="row">
+                <div class="col-md-10">
+                    <h1>Auctions</h1>
+                </div>
+                <div class="col-md-2">
+                    <form action="auctions/new" class="my-2">
+                        <input type="submit" value="New Auction" />
+                    </form>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Days Left</th>
+                        <th scope="col">Current Bid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for auction in auctions %}
+                    <tr>
+                        <th scope="row">
+                            {{ loop.counter }}
+                        </th>
+                        {% for item in auction %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h1>You must be logged in to participate in auctions</h1>
+        {% endif %}
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock %}

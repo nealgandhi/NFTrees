@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block static_prefix %}/{% endblock %}
+{% block title %}Mint{% endblock %}
+{% block auth_url %}{{ auth_url }}{% endblock %}
+{% block auth %}{{ auth_text }}{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    <div class="row mt-5">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <h1>Mint</h1>
+            {% if minted_tokens %}
+            Your tokens:
+            <ul>
+                {% for token in minted_tokens %}
+                    <li><a href="tokens/{{ token }}">{{ token }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>You have no minted tokens</p>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value="Mint">
+            </form>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+{% else %}
+    <h1>You must be logged in to mint content</h1>
+{% endif %}
+{% endblock %}

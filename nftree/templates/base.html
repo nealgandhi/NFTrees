@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="author" content="Charles Averill">
+
+	<link rel="icon" type="image/ico" sizes="48x48" href="{% static '/images/favicon.ico' %}">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{% static '/css/style.css' %}" rel="stylesheet">
+    <link href="{% static '/css/sticky-footer.css' %}" rel="stylesheet">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+  <body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  <a href="/{{ static_prefix }}index">
+			<img src="{% static '/images/logo.png' %}">
+		</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/{{ static_prefix }}index">Mint</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/{{ static_prefix }}auctions">Auctions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/{{ static_prefix }}{% block auth_url %}{% endblock %}">{% block auth %}{% endblock %}</a>
+            </li>
+			{% if not user.is_authenticated %}
+			<li class="nav-item">
+                <a class="nav-link" href="/{{ static_prefix }}accounts/sign_up">Sign Up</a>
+            </li>
+			{% endif %}
+        </ul>
+    </div>
+	</nav>
+    {% block content %}
+	{% endblock %}
+	<footer class="footer">
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
+				<p class="text-center blue" style="margin-top: 16px; margin-left: 5px; margin-right: 5px;">
+					Providing eco-friendly alternatives to NFTs
+				</p>
+			</div>
+			<div class="col-md-2">
+			</div>
+		</div>
+	</footer>
+  </body>
+</html>
