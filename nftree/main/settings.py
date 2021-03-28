@@ -131,6 +131,3 @@ LOGIN_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = "accounts.Profile"
 
 MEDIA_ROOT = BASE_DIR / "uploads"
-
-import django_heroku
-django_heroku.settings(locals())
