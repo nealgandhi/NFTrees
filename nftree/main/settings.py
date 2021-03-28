@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'nftree.accounts',
-    'nftree.tokens',
+    'accounts',
+    'tokens',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +131,6 @@ LOGIN_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = "accounts.Profile"
 
 MEDIA_ROOT = BASE_DIR / "uploads"
+
+import django_heroku
+django_heroku.settings(locals())
