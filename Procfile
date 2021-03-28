@@ -1,1 +1,1 @@
-web: gunicorn nftree.main.wsgi
+web: gunicorn main.wsgi
