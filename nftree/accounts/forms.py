@@ -11,6 +11,3 @@ class SignUpForm(UserCreationForm):
         model = Profile
         fields = ('username',)
 
-
-class MintForm(forms.Form):
-    to_mint = forms.CharField(label='Token', max_length=32)

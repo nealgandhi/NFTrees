@@ -10,7 +10,17 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
-            <form method="post">
+            {% if documents %}
+            Your minted documents:
+            <ul>
+                {% for document in documents %}
+                    <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <p>No documents.</p>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{form.as_p}}
                 <input type="submit" value="Mint">

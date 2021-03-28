@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'tokens',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,5 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'index'
 
 AUTH_USER_MODEL = "accounts.Profile"
+
+MEDIA_ROOT = BASE_DIR / "uploads"
