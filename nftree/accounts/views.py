@@ -3,14 +3,6 @@ from django.shortcuts import render, redirect
 from .forms import SignUpForm
 
 
-def auction(request):
-    if request.user.is_authenticated:
-        auth = {"auth_url": "accounts/logout", "auth_text": "Logout"}
-    else:
-        auth = {"auth_url": "accounts/login", "auth_text": "Login"}
-    return render(request, 'auction.html', auth)
-
-
 def sign_up(request):
     if request.user.is_authenticated:
         return redirect('/index')

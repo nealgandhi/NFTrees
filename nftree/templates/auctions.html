@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block static_prefix %}/{% endblock %}
-{% block title %}NFTree{% endblock %}
+{% block title %}Auctions{% endblock %}
 {% block auth_url %}{{ auth_url }}{% endblock %}
 {% block auth %}{{ auth_text }}{% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
     <h1>Welcome {{ user.username }}!</h1>
+    <br>
+    <a href="auctions/new">New Auction</a>
 {% else %}
     <h1>You must be logged in to participate in auctions</h1>
 {% endif %}
-<br>
-Temp Auction page
 {% endblock %}

@@ -11,15 +11,25 @@ class Token(models.Model):
     CATEGORIES = (("ART", "Art"),
                   ("MUS", "Music"),
                   ("ETC", "Other"))
+
     title = models.CharField(max_length=255)
     token = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     owner = models.CharField(max_length=20)
     filepath = models.TextField()
+    category = models.CharField(
+           max_length=3,
+           choices=CATEGORIES
+       )
     date_posted = models.DateTimeField(auto_now_add=True, blank=True)
 
     def jsonify(self):
+        readable_category = "ERROR"
+        for cat in self.CATEGORIES:
+            if self.category == cat[0]:
+                readable_category = cat[1]
         return {"title": str(self.title),
                 "owner": str(self.owner),
+                "category": str(readable_category),
                 "uuid": str(self.token),
                 "filepath": str(self.filepath),
                 "date_posted": str(self.date_posted)}
