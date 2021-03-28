@@ -129,12 +129,12 @@ def auction_details(request, token):
 
     if request.method == "POST":
         queried_auction.winning = request.user.username
-        queried_auction.current_price = int(queried_auction.current_price * 1.2)
+        queried_auction.current_price = int(queried_auction.current_price * 1.2) + 1
         queried_auction.n_bids += 1
         queried_auction.save()
 
     context.update({"current_price": queried_auction.current_price,
-                    "next_price": int(queried_auction.current_price * 1.2),
+                    "next_price": int(queried_auction.current_price * 1.2) + 1,
                     "winning": queried_auction.winning})
     context.update(queried_token.jsonify())
     return render(request, 'auctions/auction_details.html', context)
