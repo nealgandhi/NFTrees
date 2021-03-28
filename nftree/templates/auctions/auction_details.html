@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block static_prefix %}/{% endblock %}
+{% block title %}Auction '{{ title }}'{% endblock %}
+{% block auth_url %}{{ auth_url }}{% endblock %}
+{% block auth %}{{ auth_text }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h1>{{ title }}</h1>
+        {{ owner }}
+        <br>
+        {{ uuid }}
+        <br>
+        {{ category }}
+        <br>
+        {{ date_posted }}
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock %}

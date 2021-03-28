@@ -68,9 +68,9 @@ def auctions(request):
         end = start + datetime.timedelta(days=auction.n_days)
         now = pytz.utc.localize(datetime.datetime.now())
         if end > now:
-            auctions.append((auction.id.title, auction.owner, auction.id.category, (end - now).days, auction.current_price))
+            auctions.append((f"<a href='auctions/{auction.id.token}'>{auction.id.title}</a>", auction.owner, auction.id.category, (end - now).days, "$" + str(auction.current_price)))
     context.update({"auctions": auctions})
-    return render(request, 'auctions.html', context)
+    return render(request, 'auctions/auctions.html', context)
 
 
 def new_auction(request):
@@ -99,6 +99,8 @@ def new_auction(request):
         else:
             print("Oh no!")
 
+        return render(request, 'auctions/auctions.html', context)
+
     minted = json.loads(user.minted)
     options = []
     for m in minted:
@@ -106,7 +108,18 @@ def new_auction(request):
         if Auction.objects.filter(id=temp_token).count() == 0:
             options.append((temp_token.title, m))
     context.update({"options": options})
-    return render(request, 'new_auction.html', context)
+    return render(request, 'auctions/new_auction.html', context)
+
+
+def auction_details(request, token):
+    context = {}
+    if request.user.is_authenticated:
+        context.update({"auth_url": "accounts/logout", "auth_text": "Logout"})
+    else:
+        context.update({"auth_url": "accounts/login", "auth_text": "Login"})
+    queried_token = Token.objects.get(token=uuid.UUID(token))
+    context.update(queried_token.jsonify())
+    return render(request, 'details.html', context)
 
 
 def token_details(request, token):
