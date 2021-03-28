@@ -36,13 +36,15 @@ class Token(models.Model):
 
 
 class Auction(models.Model):
-    id = models.ForeignKey(Token, on_delete=models.CASCADE, primary_key=True)
-    n_bids = models.IntegerField()
-    time_start = models.DateTimeField()
-    time_end = models.DateTimeField()
+    id = models.ForeignKey(Token, on_delete=models.CASCADE, primary_key=True, unique=True)
+    owner = models.CharField(max_length=20)
+    n_bids = models.IntegerField(default=0)
+    time_start = models.DateTimeField(auto_now_add=True)
+    n_days = models.IntegerField()
+    current_price = models.IntegerField()
 
 
 class Bid(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     auction_id = models.ForeignKey(Auction, on_delete=models.CASCADE)
-    bid_time = models.DateTimeField()
+    bid_time = models.DateTimeField(auto_now_add=True)

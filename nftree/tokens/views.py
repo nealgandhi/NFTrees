@@ -1,5 +1,7 @@
 import json
+import datetime
 import os
+import pytz
 import sys
 import uuid
 
@@ -9,7 +11,7 @@ from django.core.files.storage import default_storage
 from django.shortcuts import render
 
 from .forms import DocumentForm, AuctionForm
-from .models import Token
+from .models import Token, Auction
 
 sys.path.append(os.path.abspath('../accounts'))
 from accounts.models import Profile
@@ -59,6 +61,15 @@ def auctions(request):
         context.update({"auth_url": "accounts/logout", "auth_text": "Logout"})
     else:
         context.update({"auth_url": "accounts/login", "auth_text": "Login"})
+    auctions = []
+    for auction in Auction.objects.all():
+        print(str(auction.time_start))
+        start = datetime.datetime.strptime(str(auction.time_start), "%Y-%m-%d %H:%M:%S.%f%z")
+        end = start + datetime.timedelta(days=auction.n_days)
+        now = pytz.utc.localize(datetime.datetime.now())
+        if end > now:
+            auctions.append((auction.id.title, auction.owner, auction.id.category, (end - now).days, auction.current_price))
+    context.update({"auctions": auctions})
     return render(request, 'auctions.html', context)
 
 
@@ -77,11 +88,24 @@ def new_auction(request):
     else:
         form = AuctionForm(request.POST)
         form.set_token_choice(user)
-        if form.is_valid:
-            print("Hooray!")
+        t = Token.objects.get(token=request.POST["token"])
+        if Auction.objects.filter(id=t).count() == 0 and int(request.POST["n_days"]) > 0:
+            new_auction_model = Auction()
+            new_auction_model.id = t
+            new_auction_model.owner = request.user.username
+            new_auction_model.n_days = int(request.POST["n_days"])
+            new_auction_model.current_price = float(request.POST["start_price"])
+            new_auction_model.save()
         else:
             print("Oh no!")
-    context.update({"form": form})
+
+    minted = json.loads(user.minted)
+    options = []
+    for m in minted:
+        temp_token = Token.objects.get(token=m)
+        if Auction.objects.filter(id=temp_token).count() == 0:
+            options.append((temp_token.title, m))
+    context.update({"options": options})
     return render(request, 'new_auction.html', context)
 
 

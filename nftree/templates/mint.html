@@ -5,11 +5,11 @@
 {% block auth %}{{ auth_text }}{% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
-    <h1>Welcome {{ user.username }}!</h1>
     <div class="row mt-5">
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
+            <h1>Mint</h1>
             {% if minted_tokens %}
             Your tokens:
             <ul>

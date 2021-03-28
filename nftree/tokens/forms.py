@@ -19,7 +19,7 @@ class AuctionForm(forms.Form):
                    (2, "Null"))
     token = forms.ChoiceField(choices=USER_TOKENS, label="Which token would you like to auction?")
     start_price = forms.FloatField(min_value=1.0, label="Start Price")
-    end_date = forms.DateTimeField()
+    n_days = forms.IntegerField(min_value=1, label="How many days would you like the auction to stay open?")
 
     def set_token_choice(self, user):
         minted = json.loads(user.minted)
