@@ -7,14 +7,17 @@ Neal Gandhi, and Jeniel Zimmerman
 ---
 
 Built using django over a 36 hour period by Charles Averill and Neal Gandhi
+
 Used as an auction based website as an alternative for NFT usage due to the 
-environmental impacts that they have. Deployed through pythonanywhere at 
+environmental impacts that they have
+
+Deployed through pythonanywhere at 
 http://charlesaverill.pythonanywhere.com/
 
 ---
 
 ## Inspiration
-NFTs have been around in the art community for quite some time, and the environmental impacts have not gone unnoticed. While NFTs allow for artists to monetize their work in new and innovative ways, the resources it takes to sustain them outweigh the usefulness that they bring.
+NFTs have been around in the art community for quite some time, and the environmental impacts have not gone unnoticed. While they allow for artists to monetize their work in new and innovative ways, the resources it takes to sustain NFTs outweigh the usefulness that they bring.
 
 As the world proceeds into more dire times with the environment, we thought that bringing an alternative way to allow artists to monetize their own items would reduce the usage of NFTs, thus reduce the strain on the environment.
 
