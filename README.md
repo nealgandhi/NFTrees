@@ -24,6 +24,7 @@ As the world proceeds into more dire times with the environment, we thought that
 ---
 
 ## Policy Brief
+Written in a 36 hour period by Jeniel Zimmerman and Margaret Belford
 https://bit.ly/3cz5MFz
 
 ---
